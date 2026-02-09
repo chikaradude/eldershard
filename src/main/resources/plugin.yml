@@ -1,0 +1,9 @@
+name: eldershard
+version: '1.0-SNAPSHOT'
+main: pl.panocha.eldershard.Eldershard
+api-version: '1.21'
+prefix: [ ELDERSHARD ]
+load: STARTUP
+authors: [ Maciej "ChikaraDude" Panocha ]
+description: future heart of elder shard minecraft server
+website: panocha.pl
