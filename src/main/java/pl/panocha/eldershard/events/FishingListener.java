@@ -18,14 +18,8 @@ public class FishingListener implements Listener {
 
         ItemStack stack = item.getItemStack();
         if (stack.getType() != Material.ENCHANTED_BOOK) return;
-
-        if (!(stack.getItemMeta() instanceof EnchantmentStorageMeta meta)) return;
-
-        for (Enchantment enchant : meta.getStoredEnchants().keySet()) {
-            meta.removeStoredEnchant(enchant);
-        }
-
-        stack.setItemMeta(meta);
+        
+        stack.setType(Material.BOOK);
     }
 
 }
