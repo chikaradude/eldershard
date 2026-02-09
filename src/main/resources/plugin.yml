@@ -7,3 +7,4 @@ load: STARTUP
 authors: [ Maciej "ChikaraDude" Panocha ]
 description: future heart of elder shard minecraft server
 website: panocha.pl
+depend: [ voicechat ]
