@@ -1,17 +1,20 @@
 package pl.panocha.eldershard;
 
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import pl.panocha.eldershard.events.FishingListener;
 
 public final class Eldershard extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
-
+        PluginManager pm = getServer().getPluginManager();
+        pm.registerEvents(new FishingListener(), this);
+        getLogger().info("Eldershard enabled.");
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        getLogger().info("Eldershard disabled.");
     }
 }
