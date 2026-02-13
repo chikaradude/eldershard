@@ -9,9 +9,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
-import pl.panocha.eldershard.commands.Zabezpiecz;
+import pl.panocha.eldershard.commands.Protect;
 import pl.panocha.eldershard.events.FishingListener;
 import pl.panocha.eldershard.events.InteractingAtEntityListener;
+
+import java.util.Objects;
 
 public final class Eldershard extends JavaPlugin {
 
@@ -35,7 +37,7 @@ public final class Eldershard extends JavaPlugin {
         pm.registerEvents(new FishingListener(), this);
         pm.registerEvents(new InteractingAtEntityListener(), this);
 
-        this.getCommand("zabezpiecz").setExecutor(new Zabezpiecz());
+        Objects.requireNonNull(this.getCommand("protect")).setExecutor(new Protect());
 
         Bukkit.getServicesManager().register(
                 BukkitVoicechatService.class,

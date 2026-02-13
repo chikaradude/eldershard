@@ -6,7 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jspecify.annotations.NonNull;
 
-public class Zabezpiecz implements CommandExecutor {
+public class Protect implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NonNull CommandSender sender, @NonNull Command command,
