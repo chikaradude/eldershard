@@ -20,7 +20,7 @@ public class JoiningListener implements Listener {
             if (!player.isOnline()) return;
             if (hasVoiceChat(player)) return;
 
-            player.sendMessage(ChatColor.GREEN + "Rozmawiaj z nami na voice chacie, baw sie emotkami, glaszcz zwierzaki i wiele wiecej! Szczegoly na" + ChatColor.AQUA + "/discord");
-        }, 20L * 75);
+            player.sendMessage(ChatColor.GREEN + "Nasz serwer obsluguje SimpleVoiceChat, Emotecraft i PatPat. Szczegoly na " + ChatColor.AQUA + "/discord");
+        }, 20L * 60);
     }
 }

@@ -12,6 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import pl.panocha.eldershard.commands.Protect;
 import pl.panocha.eldershard.events.FishingListener;
 import pl.panocha.eldershard.events.InteractingAtEntityListener;
+import pl.panocha.eldershard.events.JoiningListener;
 
 import java.util.Objects;
 
@@ -33,9 +34,12 @@ public final class Eldershard extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        instance = this;
+
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new FishingListener(), this);
         pm.registerEvents(new InteractingAtEntityListener(), this);
+        pm.registerEvents(new JoiningListener(), this);
 
         Objects.requireNonNull(this.getCommand("protect")).setExecutor(new Protect());
 
