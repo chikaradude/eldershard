@@ -12,3 +12,6 @@ commands:
   protect:
     description: "Set komend zabezpieczajacych"
     usage: "/protect"
+  openchest:
+    description: "Efekt otwierania skrzyni"
+    usage: "/openchest <player>"
