@@ -1,33 +1,28 @@
 package pl.panocha.eldershard;
 
 import de.maxhenkel.voicechat.api.BukkitVoicechatService;
-import de.maxhenkel.voicechat.api.ServerPlayer;
-import de.maxhenkel.voicechat.api.VoicechatConnection;
+import de.maxhenkel.voicechat.api.VoicechatApi;
 import de.maxhenkel.voicechat.api.VoicechatServerApi;
+import de.maxhenkel.voicechat.api.events.Event;
+import de.maxhenkel.voicechat.api.events.EventRegistration;
+import de.maxhenkel.voicechat.api.events.VoicechatServerStartedEvent;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.ServicePriority;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import pl.panocha.eldershard.commands.OpenChestCommand;
 import pl.panocha.eldershard.commands.ProtectCommand;
 import pl.panocha.eldershard.events.FishingListener;
 import pl.panocha.eldershard.events.InteractingAtEntityListener;
 import pl.panocha.eldershard.events.JoiningListener;
+import pl.panocha.eldershard.misc.VoiceIntegrationPlugin;
 
 import java.util.Objects;
+import java.util.function.Consumer;
 
 public final class Eldershard extends JavaPlugin {
 
     private static Eldershard instance;
-    private static VoicechatServerApi voicechatApi;
-
-    public static boolean hasVoiceChat(Player player) {
-        if (voicechatApi == null) return false;
-
-        VoicechatConnection connection = voicechatApi.getConnectionOf((ServerPlayer) player);
-        return connection != null && connection.isInstalled();
-    }
 
     public static Eldershard getInstance() {
         return instance;
@@ -45,12 +40,10 @@ public final class Eldershard extends JavaPlugin {
         Objects.requireNonNull(this.getCommand("protect")).setExecutor(new ProtectCommand());
         Objects.requireNonNull(this.getCommand("openchest")).setExecutor(new OpenChestCommand());
 
-        Bukkit.getServicesManager().register(
-                BukkitVoicechatService.class,
-                api -> voicechatApi = (VoicechatServerApi) api,
-                this,
-                ServicePriority.Normal
-        );
+        BukkitVoicechatService service = getServer().getServicesManager().load(BukkitVoicechatService.class);
+        if (service != null) {
+            service.registerPlugin(new VoiceIntegrationPlugin());
+        }
 
         getLogger().info("Eldershard enabled.");
     }
