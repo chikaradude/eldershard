@@ -15,10 +15,10 @@ import pl.panocha.eldershard.commands.ProtectCommand;
 import pl.panocha.eldershard.events.FishingListener;
 import pl.panocha.eldershard.events.InteractingAtEntityListener;
 import pl.panocha.eldershard.events.JoiningListener;
+import pl.panocha.eldershard.events.WeatherChangeListener;
 import pl.panocha.eldershard.misc.VoiceIntegrationPlugin;
 
 import java.util.Objects;
-import java.util.function.Consumer;
 
 public final class Eldershard extends JavaPlugin {
 
@@ -36,6 +36,7 @@ public final class Eldershard extends JavaPlugin {
         pm.registerEvents(new FishingListener(), this);
         pm.registerEvents(new InteractingAtEntityListener(), this);
         pm.registerEvents(new JoiningListener(), this);
+        pm.registerEvents(new WeatherChangeListener(), this);
 
         Objects.requireNonNull(this.getCommand("protect")).setExecutor(new ProtectCommand());
         Objects.requireNonNull(this.getCommand("openchest")).setExecutor(new OpenChestCommand());
