@@ -12,230 +12,253 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.jspecify.annotations.NonNull;
 import pl.panocha.eldershard.Eldershard;
 
-import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
-import static org.bukkit.Bukkit.getScheduler;
+public final class OpenChestCommand implements CommandExecutor {
 
-public class OpenChestCommand implements CommandExecutor {
-
-    private void playVisuals(World world, Location location) {
-        //faze1
-        int delay = 0;
-        new BukkitRunnable() {
-            final AtomicInteger counter = new AtomicInteger();
-
-            @Override
-            public void run() {
-                assert world != null;
-                world.spawnParticle(Particle.CLOUD, location, 20, 0.1, 0.1, 0.1, 0.2);
-
-                counter.getAndIncrement();
-                if (counter.get() >= 3) {
-                    cancel();
-                }
-            }
-        }.runTaskTimer(Eldershard.getInstance(), 0, 8);
-
-        //faze2
-        delay += 24;
-        getScheduler().runTaskLater(Eldershard.getInstance(), () -> new BukkitRunnable() {
-            final AtomicInteger counter = new AtomicInteger();
-
-            @Override
-            public void run() {
-                assert world != null;
-                world.spawnParticle(Particle.CLOUD, location, 5, 0.1, 0.1, 0.1, 0.2);
-                world.spawnParticle(Particle.FLAME, location, 5, 0.1, 0.1, 0.1, 0.2);
-
-                counter.getAndIncrement();
-                if (counter.get() >= 6) {
-                    cancel();
-                }
-            }
-        }.runTaskTimer(Eldershard.getInstance(), 0, 4), delay);
-
-        //faze3
-        delay += 24;
-        getScheduler().runTaskLater(Eldershard.getInstance(), () -> new BukkitRunnable() {
-            final AtomicInteger counter = new AtomicInteger();
-
-            @Override
-            public void run() {
-                assert world != null;
-                world.spawnParticle(Particle.CLOUD, location, 3, 0.1, 0.1, 0.1, 0.2);
-                world.spawnParticle(Particle.FLAME, location, 2, 0.1, 0.1, 0.1, 0.2);
-                world.spawnParticle(Particle.FIREWORK, location, 2, 0.1, 0.1, 0.1, 0.2);
-
-                counter.getAndIncrement();
-                if (counter.get() >= 9) {
-                    cancel();
-                }
-            }
-        }.runTaskTimer(Eldershard.getInstance(), 0, 2), delay);
-
-        //faze4
-        delay += 18;
-        getScheduler().runTaskLater(Eldershard.getInstance(), () -> new BukkitRunnable() {
-            final AtomicInteger counter = new AtomicInteger();
-
-            @Override
-            public void run() {
-                assert world != null;
-                world.spawnParticle(Particle.CLOUD, location, 1, 0.1, 0.1, 0.1, 0.2);
-                world.spawnParticle(Particle.FLAME, location, 2, 0.1, 0.1, 0.1, 0.2);
-                world.spawnParticle(Particle.FIREWORK, location, 2, 0.1, 0.1, 0.1, 0.2);
-
-                counter.getAndIncrement();
-                if (counter.get() >= 15) {
-                    cancel();
-                }
-            }
-        }.runTaskTimer(Eldershard.getInstance(), 0, 1), delay);
-
-        //faze5
-        delay += 15;
-        getScheduler().runTaskLater(Eldershard.getInstance(), () -> world.spawnParticle(Particle.EXPLOSION, location, 1), delay);
-    }
-
-    private void playSounds(World world, Location location) {
-        Sound sound = Sound.BLOCK_NOTE_BLOCK_BASS;
-        float volume = 0.6f;
-
-        //faze1
-        int delay = 0;
-        new BukkitRunnable() {
-            final AtomicInteger counter = new AtomicInteger();
-
-            @Override
-            public void run() {
-                assert world != null;
-                world.playSound(location, sound, volume, volume);
-
-                counter.getAndIncrement();
-                if (counter.get() >= 4) {
-                    cancel();
-                }
-            }
-        }.runTaskTimer(Eldershard.getInstance(), 0, 5);
-
-        //faze2
-        delay += 20;
-        getScheduler().runTaskLater(Eldershard.getInstance(), () -> new BukkitRunnable() {
-            final AtomicInteger counter = new AtomicInteger();
-
-            @Override
-            public void run() {
-                assert world != null;
-                world.playSound(location, sound, volume, volume);
-
-                counter.getAndIncrement();
-                if (counter.get() >= 5) {
-                    cancel();
-                }
-            }
-        }.runTaskTimer(Eldershard.getInstance(), 0, 4), delay);
-
-        //faze3
-        delay += 20;
-        getScheduler().runTaskLater(Eldershard.getInstance(), () -> new BukkitRunnable() {
-            final AtomicInteger counter = new AtomicInteger();
-
-            @Override
-            public void run() {
-                assert world != null;
-                world.playSound(location, sound, volume, volume);
-
-                counter.getAndIncrement();
-                if (counter.get() >= 6) {
-                    cancel();
-                }
-            }
-        }.runTaskTimer(Eldershard.getInstance(), 0, 3), delay);
-
-        //faze4
-        delay += 18;
-        getScheduler().runTaskLater(Eldershard.getInstance(), () -> new BukkitRunnable() {
-            final AtomicInteger counter = new AtomicInteger();
-
-            @Override
-            public void run() {
-                assert world != null;
-                world.playSound(location, sound, volume, volume);
-
-                counter.getAndIncrement();
-                if (counter.get() >= 7) {
-                    cancel();
-                }
-            }
-        }.runTaskTimer(Eldershard.getInstance(), 0, 2), delay);
-
-        //faze5
-        delay += 14;
-        getScheduler().runTaskLater(Eldershard.getInstance(), () -> new BukkitRunnable() {
-            final AtomicInteger counter = new AtomicInteger();
-
-            @Override
-            public void run() {
-                assert world != null;
-                world.playSound(location, sound, volume, volume);
-
-                counter.getAndIncrement();
-                if (counter.get() >= 8) {
-                    cancel();
-                }
-            }
-        }.runTaskTimer(Eldershard.getInstance(), 0, 1), delay);
-
-        //faze6
-        delay += 8;
-        getScheduler().runTaskLater(Eldershard.getInstance(), () -> world.playSound(location, Sound.ENTITY_GENERIC_EXPLODE, volume, volume), delay);
-    }
-
-    private void updateItemEntitySettings(Player player, Item item) {
-        item.setPickupDelay(30);
-        item.setVisualFire(true);
-        item.setCustomNameVisible(true);
-        item.setOwner(player.getUniqueId());
-
-        ItemMeta itemMeta = item.getItemStack().getItemMeta();
-        assert itemMeta != null;
-        String displayName = itemMeta.getDisplayName();
-        item.setCustomName(displayName);
-    }
-
-    private void renderLateEffects(Location location, World world) {
-        world.playSound(location, Sound.ENTITY_ITEM_PICKUP, 1f, 1f);
-        world.playSound(location, Sound.ITEM_BUNDLE_DROP_CONTENTS, 1f, 1f);
-    }
+    private static final int TOTAL_DURATION_TICKS = 110;
 
     @Override
-    public boolean onCommand(@NonNull CommandSender sender, @NonNull Command command,
-                             @NonNull String label, String @NonNull [] args) {
-        Player player = Bukkit.getPlayer(args[0]);
-        if (player == null) {
-            sender.sendMessage("player is null");
+    public boolean onCommand(
+            @NonNull CommandSender sender,
+            @NonNull Command command,
+            @NonNull String label,
+            String[] args
+    ) {
+
+        if (args.length == 0) {
+            sender.sendMessage("§cUżycie: /openchest <gracz>");
             return true;
         }
 
-        Location location = player.getLocation().add(player.getLocation().getDirection().multiply(3)).add(0, 2, 0);
-        location.setY(player.getLocation().getY() + 1);
+        Player player = Bukkit.getPlayerExact(args[0]);
 
-        World world = location.getWorld();
+        if (player == null || !player.isOnline()) {
+            sender.sendMessage("§cGracz nie jest online.");
+            return true;
+        }
 
-        playVisuals(world, location);
-        playSounds(world, location);
+        Location effectLocation = calculateEffectLocation(player);
 
-        getScheduler().runTaskLaterAsynchronously(Eldershard.getInstance(), () -> {
-            getScheduler().runTask(Eldershard.getInstance(), () -> {
-                assert world != null;
-                renderLateEffects(location, world);
-
-                Item item = world.dropItem(location, new ItemStack(Material.TNT));
-                updateItemEntitySettings(player, item);
-            });
-        }, 100);
+        new ChestAnimationTask(
+                Eldershard.getInstance(),
+                player.getUniqueId(),
+                effectLocation
+        ).start();
 
         return true;
+    }
+
+    private Location calculateEffectLocation(Player player) {
+
+        return player.getLocation()
+                .add(player.getLocation().getDirection().normalize().multiply(3))
+                .add(0, 2, 0);
+    }
+
+    /*
+     * =========================
+     * Animation Task
+     * =========================
+     */
+
+    private static final class ChestAnimationTask extends BukkitRunnable {
+
+        private final Eldershard plugin;
+        private final UUID playerId;
+        private final Location location;
+        private final World world;
+
+        private final List<TimedEvent> timeline;
+
+        private int tick = 0;
+
+        ChestAnimationTask(Eldershard plugin, UUID playerId, Location location) {
+
+            this.plugin = plugin;
+            this.playerId = playerId;
+            this.location = location.clone();
+            this.world = location.getWorld();
+
+            this.timeline = buildTimeline();
+        }
+
+        void start() {
+            runTaskTimer(plugin, 0L, 1L);
+        }
+
+        @Override
+        public void run() {
+
+            if (!isWorldValid()) {
+                cancel();
+                return;
+            }
+
+            executeTimelineTick(tick);
+
+            tick++;
+
+            if (tick > TOTAL_DURATION_TICKS) {
+                cancel();
+            }
+        }
+
+        private boolean isWorldValid() {
+            return world != null;
+        }
+
+        private void executeTimelineTick(int currentTick) {
+
+            for (TimedEvent event : timeline) {
+
+                if (event.shouldRun(currentTick)) {
+                    event.execute(world, location, playerId);
+                }
+            }
+        }
+
+        private List<TimedEvent> buildTimeline() {
+
+            List<TimedEvent> events = new ArrayList<>();
+
+            /*
+             * VISUAL BUILDUP
+             */
+
+            events.add(TimedEvent.repeat(0, 8, 3,
+                    (world, loc, player) ->
+                            world.spawnParticle(Particle.CLOUD, loc, 20, .1, .1, .1, .2)));
+
+            events.add(TimedEvent.repeat(24, 4, 6,
+                    (world, loc, player) -> {
+                        world.spawnParticle(Particle.CLOUD, loc, 5, .1, .1, .1, .2);
+                        world.spawnParticle(Particle.FLAME, loc, 5, .1, .1, .1, .2);
+                    }));
+
+            events.add(TimedEvent.repeat(48, 2, 9,
+                    (world, loc, player) -> {
+                        world.spawnParticle(Particle.CLOUD, loc, 3, .1, .1, .1, .2);
+                        world.spawnParticle(Particle.FLAME, loc, 2, .1, .1, .1, .2);
+                        world.spawnParticle(Particle.FIREWORK, loc, 2, .1, .1, .1, .2);
+                    }));
+
+            events.add(TimedEvent.repeat(66, 1, 15,
+                    (world, loc, player) -> {
+                        world.spawnParticle(Particle.CLOUD, loc, 1, .1, .1, .1, .2);
+                        world.spawnParticle(Particle.FLAME, loc, 2, .1, .1, .1, .2);
+                        world.spawnParticle(Particle.FIREWORK, loc, 2, .1, .1, .1, .2);
+                    }));
+
+            /*
+             * SOUND BUILDUP
+             */
+
+            events.add(TimedEvent.repeat(0, 5, 4,
+                    (world, loc, player) ->
+                            world.playSound(loc, Sound.BLOCK_NOTE_BLOCK_BASS, .6f, .6f)));
+
+            events.add(TimedEvent.repeat(20, 4, 5,
+                    (world, loc, player) ->
+                            world.playSound(loc, Sound.BLOCK_NOTE_BLOCK_BASS, .6f, .6f)));
+
+            events.add(TimedEvent.repeat(40, 3, 6,
+                    (world, loc, player) ->
+                            world.playSound(loc, Sound.BLOCK_NOTE_BLOCK_BASS, .6f, .6f)));
+
+            events.add(TimedEvent.repeat(58, 2, 7,
+                    (world, loc, player) ->
+                            world.playSound(loc, Sound.BLOCK_NOTE_BLOCK_BASS, .6f, .6f)));
+
+            events.add(TimedEvent.repeat(72, 1, 8,
+                    (world, loc, player) ->
+                            world.playSound(loc, Sound.BLOCK_NOTE_BLOCK_BASS, .6f, .6f)));
+
+            /*
+             * FINAL EXPLOSION
+             */
+
+            events.add(TimedEvent.once(86,
+                    (world, loc, player) ->
+                            world.playSound(loc, Sound.ENTITY_GENERIC_EXPLODE, 1f, 1f)));
+
+            events.add(TimedEvent.once(100,
+                    this::spawnReward));
+
+            return events;
+        }
+
+        private void spawnReward(World world, Location loc, UUID playerId) {
+
+            Player player = Bukkit.getPlayer(playerId);
+
+            if (player == null) return;
+
+            world.playSound(loc, Sound.ENTITY_ITEM_PICKUP, 1f, 1f);
+            world.playSound(loc, Sound.ITEM_BUNDLE_DROP_CONTENTS, 1f, 1f);
+
+            Item item = world.dropItem(loc, new ItemStack(Material.TNT));
+
+            configureRewardItem(item, playerId);
+        }
+
+        private void configureRewardItem(Item item, UUID playerId) {
+
+            item.setPickupDelay(30);
+            item.setOwner(playerId);
+            item.setVisualFire(true);
+            item.setCustomNameVisible(true);
+
+            ItemMeta meta = item.getItemStack().getItemMeta();
+
+            if (meta != null && meta.hasDisplayName()) {
+                item.setCustomName(meta.getDisplayName());
+            }
+        }
+    }
+
+    /*
+     * =========================
+     * Timed Event System
+     * =========================
+     */
+
+    private record TimedEvent(
+            int startTick,
+            int period,
+            int repetitions,
+            EventAction action
+    ) {
+
+        boolean shouldRun(int currentTick) {
+
+            if (currentTick < startTick) return false;
+
+            int delta = currentTick - startTick;
+
+            if (period == 0) return delta == 0;
+
+            return delta % period == 0 && delta / period < repetitions;
+        }
+
+        void execute(World world, Location location, UUID playerId) {
+            action.execute(world, location, playerId);
+        }
+
+        static TimedEvent once(int tick, EventAction action) {
+            return new TimedEvent(tick, 0, 1, action);
+        }
+
+        static TimedEvent repeat(int start, int period, int times, EventAction action) {
+            return new TimedEvent(start, period, times, action);
+        }
+    }
+
+    @FunctionalInterface
+    private interface EventAction {
+
+        void execute(World world, Location location, UUID playerId);
     }
 }
