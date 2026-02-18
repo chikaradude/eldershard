@@ -40,6 +40,8 @@ public final class OpenChestCommand implements CommandExecutor {
             return true;
         }
 
+        if (!player.hasPermission("eldershard.openchest")) return true;
+
         Location effectLocation = calculateEffectLocation(player);
 
         new ChestAnimationTask(

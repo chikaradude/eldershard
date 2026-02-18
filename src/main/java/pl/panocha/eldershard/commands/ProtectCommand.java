@@ -12,6 +12,7 @@ public class ProtectCommand implements CommandExecutor {
     public boolean onCommand(@NonNull CommandSender sender, @NonNull Command command,
                              @NonNull String label, String @NonNull [] args) {
         if (!(sender instanceof Player player)) return true;
+        if (!player.hasPermission("eldershard.protect")) return true;
 
         player.performCommand("expand vert");
         player.performCommand("rg define " + player.getName());
