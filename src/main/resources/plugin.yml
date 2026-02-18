@@ -9,6 +9,9 @@ description: future heart of elder shard minecraft server
 website: panocha.pl
 depend: [ voicechat ]
 commands:
+  test:
+    description: "test"
+    usage: "/test"
   protect:
     description: "Set komend zabezpieczajacych"
     usage: "/protect"
