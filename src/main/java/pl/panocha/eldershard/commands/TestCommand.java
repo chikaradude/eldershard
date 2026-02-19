@@ -33,6 +33,11 @@ public final class TestCommand implements CommandExecutor {
                             loc,
                             3
                     );
+                    world.spawnParticle(
+                            Particle.GLOW_SQUID_INK,
+                            loc,
+                            1
+                    );
                     world.playSound(
                             loc,
                             Sound.BLOCK_CHEST_OPEN,
@@ -46,11 +51,23 @@ public final class TestCommand implements CommandExecutor {
                                 .group("chest")
                                 .priority(AnimationPriority.HIGH)
                                 .duration(40)
-                                .onTick((tick, progress) -> world.spawnParticle(
-                                        Particle.FLAME,
-                                        loc,
-                                        2
-                                ))
+                                .onTick((tick, progress) -> {
+                                    world.spawnParticle(
+                                            Particle.FLAME,
+                                            loc,
+                                            4
+                                    );
+                                    world.spawnParticle(
+                                            Particle.RAID_OMEN,
+                                            loc,
+                                            4
+                                    );
+                                    world.spawnParticle(
+                                            Particle.TRIAL_OMEN,
+                                            loc,
+                                            4
+                                    );
+                                })
                 )
                 .then(
                         AnimationBuilder.create()
@@ -61,7 +78,7 @@ public final class TestCommand implements CommandExecutor {
                                 .onTick((tick, progress) -> {
                                     if (tick == 0) {
                                         world.spawnParticle(
-                                                Particle.EXPLOSION,
+                                                Particle.EXPLOSION_EMITTER,
                                                 loc,
                                                 1
                                         );
