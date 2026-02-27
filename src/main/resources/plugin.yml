@@ -10,11 +10,13 @@ website: panocha.pl
 depend: [ voicechat ]
 commands:
   test:
-    description: "test"
     usage: "/test"
+  discord:
+    usage: "/discord"
+  sklep:
+    usage: "/sklep"
   protect:
     description: "Set komend zabezpieczajacych"
     usage: "/protect"
   openchest:
-    description: "Efekt otwierania skrzyni"
     usage: "/openchest <player>"
