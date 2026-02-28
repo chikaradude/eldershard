@@ -38,6 +38,7 @@ public final class Eldershard extends JavaPlugin {
         Objects.requireNonNull(this.getCommand("openchest")).setExecutor(new OpenChestCommand());
         Objects.requireNonNull(this.getCommand("discord")).setExecutor(new DiscordCommand());
         Objects.requireNonNull(this.getCommand("sklep")).setExecutor(new SklepCommand());
+        Objects.requireNonNull(this.getCommand("start")).setExecutor(new StartCommand());
 
         BukkitVoicechatService service = getServer().getServicesManager().load(BukkitVoicechatService.class);
         if (service != null) {
