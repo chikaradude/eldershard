@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import pl.panocha.eldershard.Eldershard;
+import pl.panocha.eldershard.misc.Utils;
 import pl.panocha.eldershard.misc.VoiceIntegrationPlugin;
 
 public class JoiningListener implements Listener {
@@ -17,6 +18,7 @@ public class JoiningListener implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
+        /*
         Bukkit.getScheduler().runTaskLater(Eldershard.getInstance(), () -> {
             if (!player.isOnline()) return;
 
@@ -26,7 +28,8 @@ public class JoiningListener implements Listener {
 
             if (hasVoiceChat) return;
 
-            player.sendMessage(ChatColor.GREEN + "Nasz serwer obsluguje m.in. SimpleVoiceChat czy Emotecraft. Sprawdz " + ChatColor.AQUA + "/discord" + ChatColor.GREEN + ", by uzyskac szczegoly.");
-        }, 20L * 60);
+            player.sendMessage(Utils.colorize("&fNasz serwer obsluguje m.in. &oSimpleVoiceChat&r &fczy &oEmotecraft&r&f. Sprawdz &a/discord&f, aby uzyskac szczegoly."));
+        }, 20L * 95);
+         */
     }
 }
