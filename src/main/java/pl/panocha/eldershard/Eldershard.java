@@ -34,11 +34,11 @@ public final class Eldershard extends JavaPlugin {
         pm.registerEvents(new WeatherChangeListener(), this);
 
         Objects.requireNonNull(this.getCommand("test")).setExecutor(new TestCommand());
-        Objects.requireNonNull(this.getCommand("protect")).setExecutor(new ProtectCommand());
         Objects.requireNonNull(this.getCommand("openchest")).setExecutor(new OpenChestCommand());
         Objects.requireNonNull(this.getCommand("discord")).setExecutor(new DiscordCommand());
         Objects.requireNonNull(this.getCommand("sklep")).setExecutor(new SklepCommand());
         Objects.requireNonNull(this.getCommand("start")).setExecutor(new StartCommand());
+        Objects.requireNonNull(this.getCommand("glow")).setExecutor(new GlowCommand());
 
         BukkitVoicechatService service = getServer().getServicesManager().load(BukkitVoicechatService.class);
         if (service != null) {

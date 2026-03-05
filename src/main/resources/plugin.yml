@@ -9,6 +9,8 @@ description: future heart of elder shard minecraft server
 website: panocha.pl
 depend: [ voicechat ]
 commands:
+  glow:
+    usage: "/glow"
   test:
     usage: "/test"
   discord:
@@ -17,8 +19,5 @@ commands:
     usage: "/sklep"
   start:
     usage: "/start"
-  protect:
-    description: "Set komend zabezpieczajacych"
-    usage: "/protect"
   openchest:
     usage: "/openchest <player>"
