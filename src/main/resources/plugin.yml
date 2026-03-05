@@ -9,6 +9,8 @@ description: future heart of elder shard minecraft server
 website: panocha.pl
 depend: [ voicechat ]
 commands:
+  grzesiek:
+    usage: "/grzesiek"
   glow:
     usage: "/glow"
   test:
