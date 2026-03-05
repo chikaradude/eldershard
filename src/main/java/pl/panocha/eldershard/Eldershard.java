@@ -4,10 +4,7 @@ import de.maxhenkel.voicechat.api.BukkitVoicechatService;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import pl.panocha.eldershard.commands.*;
-import pl.panocha.eldershard.events.FishingListener;
-import pl.panocha.eldershard.events.InteractingAtEntityListener;
-import pl.panocha.eldershard.events.JoiningListener;
-import pl.panocha.eldershard.events.WeatherChangeListener;
+import pl.panocha.eldershard.events.*;
 import pl.panocha.eldershard.misc.VoiceIntegrationPlugin;
 import pl.panocha.eldershard.systems.animations.AnimationEngine;
 
@@ -32,6 +29,7 @@ public final class Eldershard extends JavaPlugin {
         pm.registerEvents(new InteractingAtEntityListener(), this);
         pm.registerEvents(new JoiningListener(), this);
         pm.registerEvents(new WeatherChangeListener(), this);
+        pm.registerEvents(new SpawningListener(), this);
 
         Objects.requireNonNull(this.getCommand("test")).setExecutor(new TestCommand());
         Objects.requireNonNull(this.getCommand("openchest")).setExecutor(new OpenChestCommand());
