@@ -42,11 +42,11 @@ public class GrzesiekCommand implements CommandExecutor {
     public boolean onCommand(@NonNull CommandSender sender, @NonNull Command command,
                              @NonNull String label, String @NonNull [] args) {
 
-        if (sender instanceof Player) return true;
         if (args.length == 0) return true;
 
         Player player = Bukkit.getPlayerExact(args[0]);
         if (player == null) return true;
+        if (!player.hasPermission("eldershard.dev")) return true;
 
         player.openMerchant(Grzesiek(), false);
 
