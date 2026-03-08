@@ -1,8 +1,8 @@
 package pl.panocha.eldershard.events;
 
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.entity.AreaEffectCloud;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,7 +22,12 @@ public class InteractListener implements Listener {
     public void onInteract(PlayerInteractEvent event) {
 
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
-        if (event.getClickedBlock() == null) return;
+
+        Block block = event.getClickedBlock();
+        if (block == null) return;
+
+        String materialName = block.getType().name();
+        if (!(materialName.endsWith("_STAIRS") || materialName.endsWith("_SLAB"))) return;
 
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
