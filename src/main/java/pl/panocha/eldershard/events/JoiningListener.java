@@ -1,35 +1,32 @@
 package pl.panocha.eldershard.events;
 
-import de.maxhenkel.voicechat.api.VoicechatConnection;
-import de.maxhenkel.voicechat.api.VoicechatServerApi;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import pl.panocha.eldershard.Eldershard;
-import pl.panocha.eldershard.misc.Utils;
-import pl.panocha.eldershard.misc.VoiceIntegrationPlugin;
+
+import java.util.ArrayList;
+import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class JoiningListener implements Listener {
 
+    private static final ThreadLocalRandom RNG = ThreadLocalRandom.current();
+    private final ArrayList<UUID> joinedPlayers = new ArrayList<>();
+
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
+        UUID uuid = event.getPlayer().getUniqueId();
+        if (joinedPlayers.contains(uuid)) return;
 
-        /*
+        long delay = RNG.nextLong(60 * 20, 1800 * 20);
         Bukkit.getScheduler().runTaskLater(Eldershard.getInstance(), () -> {
-            if (!player.isOnline()) return;
+            String playerName = event.getPlayer().getName();
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
+                    "phoenixc giveKey kluczhandlarza " + playerName + " 1");
+        }, delay);
 
-            VoicechatServerApi serverApi = VoiceIntegrationPlugin.getServerApi();
-            VoicechatConnection voicechatConnection = serverApi.getConnectionOf(player.getUniqueId());
-            boolean hasVoiceChat = voicechatConnection != null && voicechatConnection.isInstalled();
-
-            if (hasVoiceChat) return;
-
-            player.sendMessage(Utils.colorize("&fNasz serwer obsluguje m.in. &oSimpleVoiceChat&r &fczy &oEmotecraft&r&f. Sprawdz &a/discord&f, aby uzyskac szczegoly."));
-        }, 20L * 95);
-         */
+        joinedPlayers.add(uuid);
     }
 }
