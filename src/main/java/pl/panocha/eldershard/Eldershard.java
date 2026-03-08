@@ -1,6 +1,7 @@
 package pl.panocha.eldershard;
 
 import de.maxhenkel.voicechat.api.BukkitVoicechatService;
+import org.bukkit.entity.AreaEffectCloud;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import pl.panocha.eldershard.commands.*;
@@ -9,6 +10,8 @@ import pl.panocha.eldershard.misc.VoiceIntegrationPlugin;
 import pl.panocha.eldershard.systems.animations.AnimationEngine;
 
 import java.util.Objects;
+
+import static pl.panocha.eldershard.events.InteractListener.seats;
 
 public final class Eldershard extends JavaPlugin {
 
@@ -30,6 +33,9 @@ public final class Eldershard extends JavaPlugin {
         pm.registerEvents(new JoiningListener(), this);
         pm.registerEvents(new WeatherChangeListener(), this);
         pm.registerEvents(new SpawningListener(), this);
+        pm.registerEvents(new BreakingListener(), this);
+        pm.registerEvents(new InteractListener(), this);
+        pm.registerEvents(new QuitListener(), this);
 
         Objects.requireNonNull(this.getCommand("test")).setExecutor(new TestCommand());
         Objects.requireNonNull(this.getCommand("openchest")).setExecutor(new OpenChestCommand());
@@ -49,6 +55,11 @@ public final class Eldershard extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        for (AreaEffectCloud seat : seats.values()) {
+            seat.remove();
+        }
+        seats.clear();
+
         getLogger().info("Eldershard disabled.");
     }
 }
