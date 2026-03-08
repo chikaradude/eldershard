@@ -6,10 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.Merchant;
-import org.bukkit.inventory.MerchantRecipe;
+import org.bukkit.inventory.*;
 import org.jspecify.annotations.NonNull;
 
 import java.util.ArrayList;
@@ -51,7 +48,7 @@ public class GrzesiekCommand implements CommandExecutor {
         Player player = Bukkit.getPlayerExact(args[0]);
         if (player == null) return true;
 
-        player.openInventory((Inventory) Grzesiek());
+        player.openMerchant(Grzesiek(), false);
 
         return true;
     }
