@@ -1,6 +1,7 @@
 package pl.panocha.eldershard.events;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -22,6 +23,11 @@ public class JoiningListener implements Listener {
 
         long delay = RNG.nextLong(60 * 20, 1800 * 20);
         Bukkit.getScheduler().runTaskLater(Eldershard.getInstance(), () -> {
+            Player player = event.getPlayer();
+
+            if (!player.hasPermission("eldershard.obywatel")) return;
+            if (!player.isOnline()) return;
+
             String playerName = event.getPlayer().getName();
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
                     "phoenixc giveKey kluczhandlarza " + playerName + " 1");
