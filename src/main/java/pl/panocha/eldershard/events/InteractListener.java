@@ -30,14 +30,14 @@ public class InteractListener implements Listener {
         if (!(materialName.endsWith("_STAIRS") || materialName.endsWith("_SLAB"))) return;
 
         Player player = event.getPlayer();
-        UUID uuid = player.getUniqueId();
+        if (!player.isSneaking()) return;
 
+        UUID uuid = player.getUniqueId();
         AreaEffectCloud oldSeat = seats.remove(uuid);
-        if (oldSeat != null) {
-            oldSeat.remove();
-        }
+        if (oldSeat != null) oldSeat.remove();
 
         Location loc = event.getClickedBlock().getLocation().add(0.5, 0.2, 0.5);
+        if (loc.distance(player.getLocation()) > 0.75) return;
 
         AreaEffectCloud seat = Objects.requireNonNull(
                 loc.getWorld()).spawn(loc, AreaEffectCloud.class);
