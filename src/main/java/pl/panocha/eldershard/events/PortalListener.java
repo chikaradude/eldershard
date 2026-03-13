@@ -24,8 +24,8 @@ public class PortalListener implements Listener {
             if (toWorld == null) return;
 
             Location target = (toWorld.getEnvironment() == World.Environment.NETHER)
-                    ? new Location(toWorld, 0.5, 202, 0.5)
-                    : new Location(toWorld, 100.5, 65, 100.5); //todo nether
+                    ? new Location(toWorld, 50.5, 128, 50.5)
+                    : new Location(toWorld, 0.5, 202, 0.5);
 
             event.getPlayer().teleport(target);
         }

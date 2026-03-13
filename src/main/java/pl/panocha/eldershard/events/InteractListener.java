@@ -37,7 +37,7 @@ public class InteractListener implements Listener {
         if (oldSeat != null) oldSeat.remove();
 
         Location loc = event.getClickedBlock().getLocation().add(0.5, 0.2, 0.5);
-        if (loc.distance(player.getLocation()) > 0.75) return;
+        if (loc.distance(player.getLocation()) > 1.25) return;
 
         AreaEffectCloud seat = Objects.requireNonNull(
                 loc.getWorld()).spawn(loc, AreaEffectCloud.class);
@@ -49,6 +49,7 @@ public class InteractListener implements Listener {
         seat.setReapplicationDelay(Integer.MAX_VALUE);
         seat.setInvulnerable(true);
 
+        player.setSneaking(false);
         seat.addPassenger(player);
 
         seats.put(uuid, seat);
