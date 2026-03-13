@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
+import static org.bukkit.Bukkit.getLogger;
+
 public class JoiningListener implements Listener {
 
     private static final ThreadLocalRandom RNG = ThreadLocalRandom.current();
@@ -21,18 +23,23 @@ public class JoiningListener implements Listener {
         UUID uuid = event.getPlayer().getUniqueId();
         if (joinedPlayers.contains(uuid)) return;
 
+        Player player = event.getPlayer();
+        String playerName = player.getName();
         long delay = RNG.nextLong(60 * 20, 1800 * 20);
-        Bukkit.getScheduler().runTaskLater(Eldershard.getInstance(), () -> {
-            Player player = event.getPlayer();
 
+        getLogger().info("Scheduling reward for " + player.getName()
+                + " to be given at " + (delay / 20 / 60) + " min.");
+
+        Bukkit.getScheduler().runTaskLater(Eldershard.getInstance(), () -> {
             if (!player.hasPermission("eldershard.obywatel")) return;
             if (!player.isOnline()) return;
 
-            String playerName = event.getPlayer().getName();
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
                     "phoenixc giveKey kluczhandlarza " + playerName + " 1");
-        }, delay);
 
-        joinedPlayers.add(uuid);
+            joinedPlayers.add(uuid);
+
+            getLogger().info("Reward for " + player.getName() + " given successfully.");
+        }, delay);
     }
 }
