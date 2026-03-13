@@ -65,7 +65,8 @@ public class GrzesiekCommand implements CommandExecutor {
 
         Player player = Bukkit.getPlayerExact(args[0]);
         if (player == null) return true;
-        if (!player.hasPermission("eldershard.dev")) return true;
+
+        if (!sender.hasPermission("eldershard.dev")) return true;
 
         player.openMerchant(Grzesiek(), false);
 
