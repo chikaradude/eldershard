@@ -17,7 +17,8 @@ public class FishingListener implements Listener {
         ItemStack stack = item.getItemStack();
         if (stack.getType() != Material.ENCHANTED_BOOK) return;
 
-        stack.setType(Material.BOOK);
+        ItemStack book = new ItemStack(Material.BOOK);
+        item.setItemStack(book);
     }
 
 }
