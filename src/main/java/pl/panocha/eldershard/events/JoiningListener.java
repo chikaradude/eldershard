@@ -34,17 +34,6 @@ public final class JoiningListener implements Listener {
         this.logger = plugin.getLogger();
     }
 
-    @EventHandler
-    public void onJoin(PlayerJoinEvent event) {
-        final UUID uuid = event.getPlayer().getUniqueId();
-
-        if (rewardedPlayers.contains(uuid)) {
-            return;
-        }
-
-        scheduleReward(uuid);
-    }
-
     private void scheduleReward(UUID uuid) {
         final long delay = RNG.nextLong(MIN_DELAY_TICKS, MAX_DELAY_TICKS);
 
@@ -81,5 +70,16 @@ public final class JoiningListener implements Listener {
 
         logger.log(Level.FINER, () ->
                 "Reward distributed to " + player.getName());
+    }
+
+    @EventHandler
+    public void onJoin(PlayerJoinEvent event) {
+        final UUID uuid = event.getPlayer().getUniqueId();
+
+        if (rewardedPlayers.contains(uuid)) {
+            return;
+        }
+
+        scheduleReward(uuid);
     }
 }
