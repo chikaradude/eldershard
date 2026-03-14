@@ -25,9 +25,7 @@ public final class Eldershard extends JavaPlugin {
         saveDefaultConfig();
 
         ConfigManager.init(this);
-        if (ConfigManager.getInstance().isDebug()) {
-            getLogger().info("Debug mode enabled.");
-        }
+        ConfigManager.getInstance().debug("Debug mode enabled.");
 
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new FishingListener(), this);
@@ -42,24 +40,20 @@ public final class Eldershard extends JavaPlugin {
 
         Objects.requireNonNull(this.getCommand("test"))
                 .setExecutor(new TestCommand());
-
         Objects.requireNonNull(this.getCommand("openchest"))
                 .setExecutor(new OpenChestCommand(instance));
-
         Objects.requireNonNull(this.getCommand("discord"))
                 .setExecutor(new DiscordCommand());
-
         Objects.requireNonNull(this.getCommand("sklep"))
                 .setExecutor(new SklepCommand());
-
         Objects.requireNonNull(this.getCommand("start"))
                 .setExecutor(new StartCommand(instance));
-
         Objects.requireNonNull(this.getCommand("glow"))
                 .setExecutor(new GlowCommand());
-
         Objects.requireNonNull(this.getCommand("grzesiek"))
                 .setExecutor(new GrzesiekCommand());
+        Objects.requireNonNull(this.getCommand("ryszard"))
+                .setExecutor(new RyszardCommand());
 
         BukkitVoicechatService service = getServer()
                 .getServicesManager().load(BukkitVoicechatService.class);
@@ -79,7 +73,7 @@ public final class Eldershard extends JavaPlugin {
         for (AreaEffectCloud seat : seats.values()) {
             seat.remove();
         }
-        
+
         seats.clear();
 
         getLogger().info("Disabling finished.");

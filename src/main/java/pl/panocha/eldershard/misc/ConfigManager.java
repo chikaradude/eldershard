@@ -30,6 +30,8 @@ public class ConfigManager {
     public void reload() {
         plugin.reloadConfig();
         config = plugin.getConfig();
+
+        debug("Reloaded config");
     }
 
     public void debug(String message) {

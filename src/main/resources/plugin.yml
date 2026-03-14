@@ -22,3 +22,5 @@ commands:
     usage: "/start"
   openchest:
     usage: "/openchest <player>"
+  ryszard:
+    usage: "/ryszard"
