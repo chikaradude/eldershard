@@ -5,42 +5,81 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import pl.panocha.eldershard.Eldershard;
+import org.bukkit.plugin.Plugin;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import static org.bukkit.Bukkit.getLogger;
-
-public class JoiningListener implements Listener {
+public final class JoiningListener implements Listener {
 
     private static final ThreadLocalRandom RNG = ThreadLocalRandom.current();
-    private final ArrayList<UUID> joinedPlayers = new ArrayList<>();
+
+    private static final long MIN_DELAY_TICKS = 60L * 20;     // 1 minute
+    private static final long MAX_DELAY_TICKS = 1800L * 20;   // 30 minutes
+
+    private static final String PERMISSION = "eldershard.obywatel";
+    private static final String COMMAND_TEMPLATE =
+            "phoenixc giveKey kluczhandlarza %s 1";
+
+    private final Plugin plugin;
+    private final Logger logger;
+    private final Set<UUID> rewardedPlayers = new HashSet<>();
+
+    public JoiningListener(Plugin plugin) {
+        this.plugin = plugin;
+        this.logger = plugin.getLogger();
+    }
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        UUID uuid = event.getPlayer().getUniqueId();
-        if (joinedPlayers.contains(uuid)) return;
+        final UUID uuid = event.getPlayer().getUniqueId();
 
-        Player player = event.getPlayer();
-        String playerName = player.getName();
-        long delay = RNG.nextLong(60 * 20, 1800 * 20);
+        if (rewardedPlayers.contains(uuid)) {
+            return;
+        }
 
-        getLogger().info("Scheduling reward for " + player.getName()
-                + " to be given at " + (delay / 20 / 60) + " min.");
+        scheduleReward(uuid);
+    }
 
-        Bukkit.getScheduler().runTaskLater(Eldershard.getInstance(), () -> {
-            if (joinedPlayers.contains(uuid)) return;
-            if (!player.hasPermission("eldershard.obywatel")) return;
-            if (!player.isOnline()) return;
+    private void scheduleReward(UUID uuid) {
+        final long delay = RNG.nextLong(MIN_DELAY_TICKS, MAX_DELAY_TICKS);
 
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
-                    "phoenixc giveKey kluczhandlarza " + playerName + " 1");
+        logger.log(Level.INFO, () ->
+                "Scheduling reward for player " + uuid +
+                        " in " + delay / 20 / 60 + " minutes");
 
-            joinedPlayers.add(uuid);
+        Bukkit.getScheduler().runTaskLater(plugin, () -> tryReward(uuid), delay);
+    }
 
-            getLogger().info("Reward for " + player.getName() + " given successfully.");
-        }, delay);
+    private void tryReward(UUID uuid) {
+        if (rewardedPlayers.contains(uuid)) {
+            return;
+        }
+
+        final Player player = Bukkit.getPlayer(uuid);
+
+        if (player == null || !player.isOnline()) {
+            return;
+        }
+
+        if (!player.hasPermission(PERMISSION)) {
+            return;
+        }
+
+        giveReward(player);
+        rewardedPlayers.add(uuid);
+    }
+
+    private void giveReward(Player player) {
+        final String command = String.format(COMMAND_TEMPLATE, player.getName());
+
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+
+        logger.log(Level.FINER, () ->
+                "Reward distributed to " + player.getName());
     }
 }

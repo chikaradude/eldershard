@@ -8,6 +8,7 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jspecify.annotations.NonNull;
 import pl.panocha.eldershard.Eldershard;
@@ -15,10 +16,17 @@ import pl.panocha.eldershard.Eldershard;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 public final class OpenChestCommand implements CommandExecutor {
 
     private static final int TOTAL_DURATION_TICKS = 110;
+
+    private final Plugin plugin;
+
+    public OpenChestCommand(Plugin plugin) {
+        this.plugin = plugin;
+    }
 
     @Override
     public boolean onCommand(
@@ -45,7 +53,7 @@ public final class OpenChestCommand implements CommandExecutor {
         Location effectLocation = calculateEffectLocation(player);
 
         new ChestAnimationTask(
-                Eldershard.getInstance(),
+                (Eldershard) plugin,
                 player.getUniqueId(),
                 effectLocation
         ).start();

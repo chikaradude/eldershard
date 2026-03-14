@@ -15,22 +15,16 @@ import static pl.panocha.eldershard.events.InteractListener.seats;
 
 public final class Eldershard extends JavaPlugin {
 
-    private static Eldershard instance;
-
-    public static Eldershard getInstance() {
-        return instance;
-    }
-
     @Override
     public void onEnable() {
-        instance = this;
+        Eldershard instance = this;
 
         AnimationEngine.initialize(this);
 
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new FishingListener(), this);
         pm.registerEvents(new InteractingAtEntityListener(), this);
-        pm.registerEvents(new JoiningListener(), this);
+        pm.registerEvents(new JoiningListener(instance), this);
         pm.registerEvents(new WeatherChangeListener(), this);
         pm.registerEvents(new SpawningListener(), this);
         pm.registerEvents(new BreakingListener(), this);
@@ -38,18 +32,32 @@ public final class Eldershard extends JavaPlugin {
         pm.registerEvents(new QuitListener(), this);
         pm.registerEvents(new PortalListener(), this);
 
-        Objects.requireNonNull(this.getCommand("test")).setExecutor(new TestCommand());
-        Objects.requireNonNull(this.getCommand("openchest")).setExecutor(new OpenChestCommand());
-        Objects.requireNonNull(this.getCommand("discord")).setExecutor(new DiscordCommand());
-        Objects.requireNonNull(this.getCommand("sklep")).setExecutor(new SklepCommand());
-        Objects.requireNonNull(this.getCommand("start")).setExecutor(new StartCommand());
-        Objects.requireNonNull(this.getCommand("glow")).setExecutor(new GlowCommand());
-        Objects.requireNonNull(this.getCommand("grzesiek")).setExecutor(new GrzesiekCommand());
+        Objects.requireNonNull(this.getCommand("test"))
+                .setExecutor(new TestCommand());
 
-        BukkitVoicechatService service = getServer().getServicesManager().load(BukkitVoicechatService.class);
-        if (service != null) {
-            service.registerPlugin(new VoiceIntegrationPlugin());
-        }
+        Objects.requireNonNull(this.getCommand("openchest"))
+                .setExecutor(new OpenChestCommand(instance));
+
+        Objects.requireNonNull(this.getCommand("discord"))
+                .setExecutor(new DiscordCommand());
+
+        Objects.requireNonNull(this.getCommand("sklep"))
+                .setExecutor(new SklepCommand());
+
+        Objects.requireNonNull(this.getCommand("start"))
+                .setExecutor(new StartCommand(instance));
+
+        Objects.requireNonNull(this.getCommand("glow"))
+                .setExecutor(new GlowCommand());
+
+        Objects.requireNonNull(this.getCommand("grzesiek"))
+                .setExecutor(new GrzesiekCommand());
+
+        //BukkitVoicechatService service = getServer().getServicesManager().load(BukkitVoicechatService.class);
+        //if (service != null) {
+        //    service.registerPlugin(new VoiceIntegrationPlugin());
+        //}
+        // depend: [ voicechat ] (add to plugin.yml)
 
         getLogger().info("Eldershard enabled.");
     }
