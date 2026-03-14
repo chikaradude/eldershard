@@ -11,10 +11,9 @@ public class InteractingAtEntityListener implements Listener {
     @EventHandler
     public void onInteract(PlayerInteractAtEntityEvent event){
         Entity entity = event.getRightClicked();
+        if (entity.getType() != EntityType.VILLAGER) return;
 
-        if (entity.getType() == EntityType.VILLAGER){
-            event.setCancelled(true);
-            entity.remove();
-        }
+        event.setCancelled(true);
+        entity.remove();
     }
 }
