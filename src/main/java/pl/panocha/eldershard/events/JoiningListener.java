@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.Plugin;
+import pl.panocha.eldershard.misc.ConfigManager;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,36 +27,36 @@ public final class JoiningListener implements Listener {
             "phoenixc giveKey kluczhandlarza %s 1";
 
     private final Plugin plugin;
-    private final Logger logger;
     private final Set<UUID> rewardedPlayers = new HashSet<>();
 
     public JoiningListener(Plugin plugin) {
         this.plugin = plugin;
-        this.logger = plugin.getLogger();
     }
 
     private void scheduleReward(UUID uuid) {
         final long delay = RNG.nextLong(MIN_DELAY_TICKS, MAX_DELAY_TICKS);
 
-        logger.log(Level.INFO, () ->
-                "Scheduling reward for player " + uuid +
-                        " in " + delay / 20 / 60 + " minutes");
+        ConfigManager.getInstance().debug("Scheduling reward for player " + uuid + " in "
+                + delay / 20 / 60 + " minutes");
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> tryReward(uuid), delay);
     }
 
     private void tryReward(UUID uuid) {
         if (rewardedPlayers.contains(uuid)) {
+            ConfigManager.getInstance().debug("tried, but rewardedPlayers already contains " + uuid);
             return;
         }
 
         final Player player = Bukkit.getPlayer(uuid);
 
         if (player == null || !player.isOnline()) {
+            ConfigManager.getInstance().debug(uuid + " is null or not online");
             return;
         }
 
         if (!player.hasPermission(PERMISSION)) {
+            ConfigManager.getInstance().debug(uuid + " has no permission to get reward");
             return;
         }
 
@@ -65,11 +66,9 @@ public final class JoiningListener implements Listener {
 
     private void giveReward(Player player) {
         final String command = String.format(COMMAND_TEMPLATE, player.getName());
-
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
 
-        logger.log(Level.INFO, () ->
-                "Reward distributed to " + player.getName());
+        ConfigManager.getInstance().debug("Reward distributed to " + player.getName());
     }
 
     @EventHandler
@@ -77,6 +76,7 @@ public final class JoiningListener implements Listener {
         final UUID uuid = event.getPlayer().getUniqueId();
 
         if (rewardedPlayers.contains(uuid)) {
+            ConfigManager.getInstance().debug("rewardedPlayers already contains " + uuid);
             return;
         }
 

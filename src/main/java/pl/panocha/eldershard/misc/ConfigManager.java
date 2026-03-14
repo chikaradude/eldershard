@@ -3,6 +3,10 @@ package pl.panocha.eldershard.misc;
 import org.bukkit.configuration.file.FileConfiguration;
 import pl.panocha.eldershard.Eldershard;
 
+import java.util.logging.Level;
+
+import static org.bukkit.Bukkit.getLogger;
+
 public class ConfigManager {
 
     private static ConfigManager instance;
@@ -28,7 +32,9 @@ public class ConfigManager {
         config = plugin.getConfig();
     }
 
-    public boolean isDebug() {
-        return config.getBoolean("debug", true);
+    public void debug(String message) {
+        if (config.getBoolean("debug")) {
+            getLogger().log(Level.INFO, message);
+        }
     }
 }
