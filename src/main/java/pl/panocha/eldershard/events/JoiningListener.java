@@ -31,6 +31,7 @@ public class JoiningListener implements Listener {
                 + " to be given at " + (delay / 20 / 60) + " min.");
 
         Bukkit.getScheduler().runTaskLater(Eldershard.getInstance(), () -> {
+            if (joinedPlayers.contains(uuid)) return;
             if (!player.hasPermission("eldershard.obywatel")) return;
             if (!player.isOnline()) return;
 
