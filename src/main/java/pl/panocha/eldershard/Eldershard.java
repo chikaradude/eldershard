@@ -1,12 +1,11 @@
 package pl.panocha.eldershard;
 
-import de.maxhenkel.voicechat.api.BukkitVoicechatService;
 import org.bukkit.entity.AreaEffectCloud;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import pl.panocha.eldershard.commands.*;
 import pl.panocha.eldershard.events.*;
-import pl.panocha.eldershard.misc.VoiceIntegrationPlugin;
+import pl.panocha.eldershard.misc.ConfigManager;
 import pl.panocha.eldershard.systems.animations.AnimationEngine;
 
 import java.util.Objects;
@@ -19,7 +18,12 @@ public final class Eldershard extends JavaPlugin {
     public void onEnable() {
         Eldershard instance = this;
 
-        AnimationEngine.initialize(this);
+        saveDefaultConfig();
+
+        ConfigManager.init(this);
+        if (ConfigManager.getInstance().isDebug()) {
+            getLogger().info("Debug mode enabled.");
+        }
 
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new FishingListener(), this);
@@ -59,7 +63,9 @@ public final class Eldershard extends JavaPlugin {
         //}
         // depend: [ voicechat ] (add to plugin.yml)
 
-        getLogger().info("Eldershard enabled.");
+        AnimationEngine.initialize(this);
+
+        getLogger().info("Eldershard enabling finished.");
     }
 
     @Override
