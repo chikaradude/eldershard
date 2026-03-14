@@ -68,7 +68,7 @@ public final class JoiningListener implements Listener {
 
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
 
-        logger.log(Level.FINER, () ->
+        logger.log(Level.INFO, () ->
                 "Reward distributed to " + player.getName());
     }
 
