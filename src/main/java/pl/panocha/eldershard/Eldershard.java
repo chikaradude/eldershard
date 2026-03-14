@@ -1,11 +1,13 @@
 package pl.panocha.eldershard;
 
+import de.maxhenkel.voicechat.api.BukkitVoicechatService;
 import org.bukkit.entity.AreaEffectCloud;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import pl.panocha.eldershard.commands.*;
 import pl.panocha.eldershard.events.*;
 import pl.panocha.eldershard.misc.ConfigManager;
+import pl.panocha.eldershard.misc.VoiceIntegrationPlugin;
 import pl.panocha.eldershard.systems.animations.AnimationEngine;
 
 import java.util.Objects;
@@ -16,6 +18,8 @@ public final class Eldershard extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        getLogger().info("Enabling started.");
+
         Eldershard instance = this;
 
         saveDefaultConfig();
@@ -57,24 +61,27 @@ public final class Eldershard extends JavaPlugin {
         Objects.requireNonNull(this.getCommand("grzesiek"))
                 .setExecutor(new GrzesiekCommand());
 
-        //BukkitVoicechatService service = getServer().getServicesManager().load(BukkitVoicechatService.class);
-        //if (service != null) {
-        //    service.registerPlugin(new VoiceIntegrationPlugin());
-        //}
-        // depend: [ voicechat ] (add to plugin.yml)
+        BukkitVoicechatService service = getServer()
+                .getServicesManager().load(BukkitVoicechatService.class);
+        if (service != null) {
+            service.registerPlugin(new VoiceIntegrationPlugin());
+        }
 
         AnimationEngine.initialize(this);
 
-        getLogger().info("Eldershard enabling finished.");
+        getLogger().info("Enabling finished.");
     }
 
     @Override
     public void onDisable() {
+        getLogger().info("Disabling started.");
+
         for (AreaEffectCloud seat : seats.values()) {
             seat.remove();
         }
+        
         seats.clear();
 
-        getLogger().info("Eldershard disabled.");
+        getLogger().info("Disabling finished.");
     }
 }
