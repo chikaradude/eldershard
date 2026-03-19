@@ -22,6 +22,8 @@ public class InteractListener implements Listener {
     public void onInteract(PlayerInteractEvent event) {
 
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+        
+        if (event.hasItem()) return;
 
         Block block = event.getClickedBlock();
         if (block == null) return;
