@@ -13,7 +13,7 @@ public class CrystalAnimation {
         // 🔥 USTAW SWOJĄ LOKACJĘ
         Location fixedLocation = new Location(
                 plugin.getServer().getWorld("eldershard"), // nazwa świata
-                10.5, // X //should be 0
+                0.5, // X
                 214.5,    // Y
                 -48.5  // Z
         );
@@ -35,8 +35,8 @@ public class CrystalAnimation {
     private void spawnDoubleCone(Location center, double step) {
         World world = center.getWorld();
 
-        double height = 2.5;
-        double radius = 1.5;
+        double height = 5.5;
+        double radius = 3.5;
 
         for (double y = -height; y <= height; y += 0.15) {
 
