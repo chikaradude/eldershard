@@ -10,8 +10,6 @@ import pl.panocha.eldershard.misc.ConfigManager;
 import pl.panocha.eldershard.misc.VoiceIntegrationPlugin;
 import pl.panocha.eldershard.systems.animations.AnimationEngine;
 
-import java.util.Objects;
-
 import static pl.panocha.eldershard.events.InteractListener.seats;
 
 public final class Eldershard extends JavaPlugin {
@@ -38,25 +36,17 @@ public final class Eldershard extends JavaPlugin {
         pm.registerEvents(new QuitListener(), this);
         pm.registerEvents(new PortalListener(), this);
 
-        Objects.requireNonNull(this.getCommand("test"))
-                .setExecutor(new TestCommand());
-        Objects.requireNonNull(this.getCommand("openchest"))
-                .setExecutor(new OpenChestCommand(instance));
-        Objects.requireNonNull(this.getCommand("discord"))
-                .setExecutor(new DiscordCommand());
-        Objects.requireNonNull(this.getCommand("sklep"))
-                .setExecutor(new SklepCommand());
-        Objects.requireNonNull(this.getCommand("start"))
-                .setExecutor(new StartCommand(instance));
-        Objects.requireNonNull(this.getCommand("glow"))
-                .setExecutor(new GlowCommand());
-        Objects.requireNonNull(this.getCommand("grzesiek"))
-                .setExecutor(new GrzesiekCommand());
-        Objects.requireNonNull(this.getCommand("ryszard"))
-                .setExecutor(new RyszardCommand());
+        this.getCommand("test").setExecutor(new TestCommand());
+        this.getCommand("openchest").setExecutor(new OpenChestCommand(instance));
+        this.getCommand("discord").setExecutor(new DiscordCommand());
+        this.getCommand("sklep").setExecutor(new SklepCommand());
+        this.getCommand("start").setExecutor(new StartCommand(instance));
+        this.getCommand("glow").setExecutor(new GlowCommand());
+        this.getCommand("grzesiek").setExecutor(new GrzesiekCommand());
+        this.getCommand("ryszard").setExecutor(new RyszardCommand());
+        this.getCommand("fw").setExecutor(new FwCommand());
 
-        BukkitVoicechatService service = getServer()
-                .getServicesManager().load(BukkitVoicechatService.class);
+        BukkitVoicechatService service = getServer().getServicesManager().load(BukkitVoicechatService.class);
         if (service != null) {
             service.registerPlugin(new VoiceIntegrationPlugin());
         }

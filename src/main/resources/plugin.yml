@@ -24,3 +24,5 @@ commands:
     usage: "/openchest <player>"
   ryszard:
     usage: "/ryszard"
+  fw:
+    usage: "/fw"
