@@ -26,3 +26,5 @@ commands:
     usage: "/ryszard"
   fw:
     usage: "/fw"
+  shopgoal:
+    usage: "/shopgoal"
