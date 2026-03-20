@@ -7,6 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import pl.panocha.eldershard.commands.*;
 import pl.panocha.eldershard.events.*;
 import pl.panocha.eldershard.misc.ConfigManager;
+import pl.panocha.eldershard.misc.CrystalAnimation;
 import pl.panocha.eldershard.misc.VoiceIntegrationPlugin;
 import pl.panocha.eldershard.systems.animations.AnimationEngine;
 
@@ -53,6 +54,8 @@ public final class Eldershard extends JavaPlugin {
         }
 
         AnimationEngine.initialize(this);
+
+        new CrystalAnimation(this);
 
         getLogger().info("Enabling finished.");
     }
