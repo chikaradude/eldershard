@@ -9,10 +9,8 @@ import pl.panocha.eldershard.Eldershard;
 public class CrystalAnimation {
 
     public CrystalAnimation(Eldershard plugin) {
-
-        // 🔥 USTAW SWOJĄ LOKACJĘ
         Location fixedLocation = new Location(
-                plugin.getServer().getWorld("eldershard"), // nazwa świata
+                plugin.getServer().getWorld("eldershard"),
                 0.5, // X
                 214.5,    // Y
                 -48.5  // Z

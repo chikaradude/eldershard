@@ -36,6 +36,7 @@ public final class Eldershard extends JavaPlugin {
         pm.registerEvents(new InteractListener(), this);
         pm.registerEvents(new QuitListener(), this);
         pm.registerEvents(new PortalListener(), this);
+        pm.registerEvents(new DeathListener(), this);
 
         this.getCommand("test").setExecutor(new TestCommand());
         this.getCommand("openchest").setExecutor(new OpenChestCommand(instance));
