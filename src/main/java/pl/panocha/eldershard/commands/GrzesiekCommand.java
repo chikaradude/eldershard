@@ -87,6 +87,9 @@ public class GrzesiekCommand implements CommandExecutor {
         MerchantRecipe trade22 = new MerchantRecipe(new ItemStack(Material.END_STONE, 32), 24); //to zyskujesz
         trade22.addIngredient(new ItemStack(Material.EMERALD, 1)); //to dajesz wiesniakowi
         recipes.add(trade22);
+        MerchantRecipe trade23 = new MerchantRecipe(new ItemStack(Material.RESIN_CLUMP, 64), 32); //to zyskujesz
+        trade23.addIngredient(new ItemStack(Material.EMERALD, 1)); //to dajesz wiesniakowi
+        recipes.add(trade23);
 
         merchant.setRecipes(recipes);
 
