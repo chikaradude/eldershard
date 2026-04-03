@@ -34,10 +34,25 @@ public class GrzesiekCommand implements CommandExecutor {
         MerchantRecipe trade5 = new MerchantRecipe(new ItemStack(Material.EMERALD), 32); //to zyskujesz
         trade5.addIngredient(new ItemStack(Material.WHITE_WOOL, 24)); //to dajesz wiesniakowi
         recipes.add(trade5);
+        MerchantRecipe trade15 = new MerchantRecipe(new ItemStack(Material.EMERALD), 32); //to zyskujesz
+        trade15.addIngredient(new ItemStack(Material.DIRT, 48)); //to dajesz wiesniakowi
+        recipes.add(trade15);
+        MerchantRecipe trade16 = new MerchantRecipe(new ItemStack(Material.EMERALD), 32); //to zyskujesz
+        trade16.addIngredient(new ItemStack(Material.DEEPSLATE, 48)); //to dajesz wiesniakowi
+        recipes.add(trade16);
+        MerchantRecipe trade19 = new MerchantRecipe(new ItemStack(Material.EMERALD), 32); //to zyskujesz
+        trade19.addIngredient(new ItemStack(Material.COBBLED_DEEPSLATE, 48)); //to dajesz wiesniakowi
+        recipes.add(trade19);
+        MerchantRecipe trade11 = new MerchantRecipe(new ItemStack(Material.EMERALD), 32); //to zyskujesz
+        trade11.addIngredient(new ItemStack(Material.COBBLESTONE, 64)); //to dajesz wiesniakowi
+        recipes.add(trade11);
+        MerchantRecipe trade12 = new MerchantRecipe(new ItemStack(Material.EMERALD), 4); //to zyskujesz
+        trade12.addIngredient(new ItemStack(Material.CLOCK, 1)); //to dajesz wiesniakowi
+        recipes.add(trade12);
 
         //SPRZEDAZ - wiesniak sprzedaje to graczom
         MerchantRecipe trade6 = new MerchantRecipe(new ItemStack(Material.BRICK, 64), 32); //to zyskujesz
-        trade6.addIngredient(new ItemStack(Material.EMERALD, 2)); //to dajesz wiesniakowi
+        trade6.addIngredient(new ItemStack(Material.EMERALD, 1)); //to dajesz wiesniakowi
         recipes.add(trade6);
         MerchantRecipe trade7 = new MerchantRecipe(new ItemStack(Material.GLASS, 8), 32); //to zyskujesz
         trade7.addIngredient(new ItemStack(Material.EMERALD, 1)); //to dajesz wiesniakowi
@@ -51,41 +66,27 @@ public class GrzesiekCommand implements CommandExecutor {
         MerchantRecipe trade10 = new MerchantRecipe(new ItemStack(Material.EXPERIENCE_BOTTLE, 8), 32); //to zyskujesz
         trade10.addIngredient(new ItemStack(Material.EMERALD, 1)); //to dajesz wiesniakowi
         recipes.add(trade10);
-
-        //NOWY SET SKUP
-        MerchantRecipe trade11 = new MerchantRecipe(new ItemStack(Material.EMERALD), 32); //to zyskujesz
-        trade11.addIngredient(new ItemStack(Material.COBBLESTONE, 64)); //to dajesz wiesniakowi
-        recipes.add(trade11);
-        MerchantRecipe trade12 = new MerchantRecipe(new ItemStack(Material.EMERALD), 4); //to zyskujesz
-        trade12.addIngredient(new ItemStack(Material.CLOCK, 1)); //to dajesz wiesniakowi
-        recipes.add(trade12);
-
-        //NOWY SET SPRZEDAŻ
         MerchantRecipe trade13 = new MerchantRecipe(new ItemStack(Material.STONE, 48), 32); //to zyskujesz
         trade13.addIngredient(new ItemStack(Material.EMERALD, 1)); //to dajesz wiesniakowi
         recipes.add(trade13);
         MerchantRecipe trade14 = new MerchantRecipe(new ItemStack(Material.TERRACOTTA, 32), 32); //to zyskujesz
         trade14.addIngredient(new ItemStack(Material.EMERALD, 1)); //to dajesz wiesniakowi
         recipes.add(trade14);
-
-        //NOWY SET SKUP 2
-        MerchantRecipe trade15 = new MerchantRecipe(new ItemStack(Material.EMERALD), 32); //to zyskujesz
-        trade15.addIngredient(new ItemStack(Material.DIRT, 48)); //to dajesz wiesniakowi
-        recipes.add(trade15);
-        MerchantRecipe trade16 = new MerchantRecipe(new ItemStack(Material.EMERALD), 32); //to zyskujesz
-        trade16.addIngredient(new ItemStack(Material.DEEPSLATE, 48)); //to dajesz wiesniakowi
-        recipes.add(trade16);
-        MerchantRecipe trade19 = new MerchantRecipe(new ItemStack(Material.EMERALD), 32); //to zyskujesz
-        trade19.addIngredient(new ItemStack(Material.COBBLED_DEEPSLATE, 48)); //to dajesz wiesniakowi
-        recipes.add(trade19);
-
-        //NOWY SET SPRZEDAŻ 2
-        MerchantRecipe trade17 = new MerchantRecipe(new ItemStack(Material.PRISMARINE_SHARD, 48), 32); //to zyskujesz
+        MerchantRecipe trade17 = new MerchantRecipe(new ItemStack(Material.PRISMARINE_SHARD, 24), 32); //to zyskujesz
         trade17.addIngredient(new ItemStack(Material.EMERALD, 1)); //to dajesz wiesniakowi
         recipes.add(trade17);
-        MerchantRecipe trade18 = new MerchantRecipe(new ItemStack(Material.SPONGE, 1), 12); //to zyskujesz
+        MerchantRecipe trade21 = new MerchantRecipe(new ItemStack(Material.PRISMARINE_CRYSTALS, 24), 24); //to zyskujesz
+        trade21.addIngredient(new ItemStack(Material.EMERALD, 1)); //to dajesz wiesniakowi
+        recipes.add(trade21);
+        MerchantRecipe trade18 = new MerchantRecipe(new ItemStack(Material.SPONGE, 1), 16); //to zyskujesz
         trade18.addIngredient(new ItemStack(Material.EMERALD, 1)); //to dajesz wiesniakowi
         recipes.add(trade18);
+        MerchantRecipe trade20 = new MerchantRecipe(new ItemStack(Material.END_ROD, 4), 24); //to zyskujesz
+        trade20.addIngredient(new ItemStack(Material.EMERALD, 1)); //to dajesz wiesniakowi
+        recipes.add(trade20);
+        MerchantRecipe trade22 = new MerchantRecipe(new ItemStack(Material.END_STONE, 32), 24); //to zyskujesz
+        trade22.addIngredient(new ItemStack(Material.EMERALD, 1)); //to dajesz wiesniakowi
+        recipes.add(trade22);
 
         merchant.setRecipes(recipes);
 
