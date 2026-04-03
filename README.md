@@ -1,2 +1,2 @@
 # eldershard
-future heart of elder shard minecraft server
+future heart of eldershard.pl minecraft server
